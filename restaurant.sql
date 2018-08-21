@@ -58,7 +58,7 @@
 -- SELECT name, stars FROM restaurant ORDER BY stars desc LIMIT 2;
 
 -- Not Correct
--- SELECT name, stars FROM restaurant ORDER BY stars desc LIMIT 2 WHERE distance < 2;
+SELECT name, stars, distance FROM restaurant WHERE distance < 2 ORDER BY stars desc LIMIT 2 ;
 
 -- SELECT COUNT(*) FROM restaurant;
 
