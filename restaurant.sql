@@ -47,3 +47,23 @@
 -- SELECT name FROM restaurant WHERE last_time_you_ate_there IS NULL;
 
 -- SELECT name FROM restaurant WHERE last_time_you_ate_there IS NULL and stars = 5;
+
+
+-- - - - - - - - - - - - - - - - - - - - - - - - - -  - - -
+-- Aggregation and Sorting Queries
+-- SELECT name, distance FROM restaurant ORDER BY distance;
+
+-- SELECT name, distance FROM restaurant ORDER BY distance LIMIT 2;
+
+-- SELECT name, stars FROM restaurant ORDER BY stars desc LIMIT 2;
+
+-- Not Correct
+-- SELECT name, stars FROM restaurant ORDER BY stars desc LIMIT 2 WHERE distance < 2;
+
+-- SELECT COUNT(*) FROM restaurant;
+
+-- SELECT COUNT(*), category FROM restaurant GROUP BY category;
+
+-- SELECT category, AVG(stars) FROM restaurant GROUP BY category;
+
+-- SELECT category, MAX(stars) FROM restaurant GROUP BY category;
