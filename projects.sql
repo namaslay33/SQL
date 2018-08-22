@@ -287,3 +287,62 @@
 -- project_uses_tech on tech.id = project_uses_tech.tech_id GROUP by tech.name;
 
 -- 7. List all projects along with each technology used by it. You will need to do a three-way join.
+-- SELECT project.name, tech.name
+-- FROM project
+-- left outer join
+-- project_uses_tech on project.id = project_uses_tech.project_id 
+-- left outer join
+-- tech on tech.id = project_uses_tech.tech_id
+-- GROUP BY project.name, tech.name;
+
+-- 8. List all the distinct techs that are used by at least one project.
+-- SELECT DISTINCT tech.name
+-- FROM tech
+-- left outer join
+-- project_uses_tech on tech.id = project_uses_tech.tech_id and project_id is NOT NULL;
+
+-- 9. List all the distinct techs that are not used by any projects.
+-- SELECT DISTINCT tech.name, project_uses_tech.project_id
+-- FROM tech
+-- left outer join
+-- project_uses_tech on tech.id = project_uses_tech.tech_id WHERE project_id is NULL;
+
+-- 10. List all the distinct projects that use at least one tech.
+-- SELECT DISTINCT project.name
+-- FROM project_uses_tech
+-- left outer join
+-- project on project_uses_tech.project_id = project.id; 
+
+-- 11. List all the distinct projects that use no tech.
+-- SELECT DISTINCT project.name
+-- FROM project
+-- left outer join
+-- project_uses_tech on project.id = project_uses_tech.project_id WHERE project_uses_tech.tech_id is NULL;
+
+-- 12. Order the projects by how many tech it uses.
+-- SELECT project.name, COUNT(project_uses_tech.project_id)
+-- FROM project
+-- left outer join
+-- project_uses_tech on project.id = project_uses_tech.project_id 
+-- GROUP BY project.name
+-- ORDER BY COUNT(project_uses_tech.project_id) DESC;
+
+-- 13. Order the tech by how many projects use it.
+-- SELECT tech.name, COUNT(project_uses_tech.tech_id)
+-- FROM tech
+-- left outer join
+-- project_uses_tech on tech.id = project_uses_tech.tech_id
+-- GROUP BY tech.name
+-- ORDER BY COUNT(project_uses_tech.tech_id) DESC;
+
+-- 14. What is the average number of techs used by a project?
+SELECT AVG(count) 
+FROM(
+    SELECT project.name, COUNT(project_uses_tech.project_id) AS count
+    FROM project
+    left outer join project_uses_tech 
+    on project.id = project_uses_tech.project_id
+    GROUP BY project.name, project_uses_tech.project_id
+    ORDER BY COUNT(project_uses_tech.project_id) DESC
+) as counts;
+
